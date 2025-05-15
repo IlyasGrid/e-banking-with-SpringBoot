@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
+@DiscriminatorColumn(name = "TYPE",length = 4, discriminatorType = DiscriminatorType.STRING)
 public class BankAccount {
     @Id
     private String id;
