@@ -1,5 +1,6 @@
 package enset.ilyasgrid.ebankbackend.services;
 
+import enset.ilyasgrid.ebankbackend.dtos.CustomerDTO;
 import enset.ilyasgrid.ebankbackend.entities.BankAccount;
 import enset.ilyasgrid.ebankbackend.entities.CurrentAccount;
 import enset.ilyasgrid.ebankbackend.entities.Customer;
@@ -14,7 +15,7 @@ public interface BankAccountService {
     Customer saveCustomer(Customer customer);
     CurrentAccount saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException;
     SavingAccount saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException;
-    List<Customer> listCustomers();
+    List<CustomerDTO> listCustomers();
     BankAccount getBankAccount(String accountId) throws BankAccountNotFoundException;
     void debit(String accountId, double amount, String description) throws BankAccountNotFoundException, BalanceAccountInsufficient;
     void credit(String accountId, double amount, String description) throws BankAccountNotFoundException;

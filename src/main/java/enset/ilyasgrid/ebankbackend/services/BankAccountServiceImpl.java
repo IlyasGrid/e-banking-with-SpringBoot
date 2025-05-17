@@ -1,10 +1,12 @@
 package enset.ilyasgrid.ebankbackend.services;
 
+import enset.ilyasgrid.ebankbackend.dtos.CustomerDTO;
 import enset.ilyasgrid.ebankbackend.entities.*;
 import enset.ilyasgrid.ebankbackend.enums.OperationType;
 import enset.ilyasgrid.ebankbackend.exceptions.BalanceAccountInsufficient;
 import enset.ilyasgrid.ebankbackend.exceptions.BankAccountNotFoundException;
 import enset.ilyasgrid.ebankbackend.exceptions.CustomerNotFoundException;
+import enset.ilyasgrid.ebankbackend.mappers.BankAccountMapperImpl;
 import enset.ilyasgrid.ebankbackend.repositories.AccountOperationRepository;
 import enset.ilyasgrid.ebankbackend.repositories.BankAccountRepository;
 import enset.ilyasgrid.ebankbackend.repositories.CustomerRepository;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -29,6 +32,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     private BankAccountRepository bankAccountRepository;
     private AccountOperationRepository accountOperationRepository;
 
+    private BankAccountMapperImpl dtoMapper;
 //   Slf4j remplace ca
 //    Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -73,8 +77,12 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public List<Customer> listCustomers() {
-        return customerRepository.findAll();
+    public List<CustomerDTO> listCustomers() {
+        List<Customer> customers =  customerRepository.findAll();
+        List<CustomerDTO> customerDTOs = customers.stream().map(cus->
+            dtoMapper.fromCustomer(cus)
+        ).collect(Collectors.toList());
+        return customerDTOs;
     }
 
     @Override
@@ -128,6 +136,6 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public List<BankAccount> bankAccountList() {
-        return List.of();
+        return bankAccountRepository.findAll();
     }
 }
