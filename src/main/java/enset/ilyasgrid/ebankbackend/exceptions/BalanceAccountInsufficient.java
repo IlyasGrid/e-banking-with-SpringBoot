@@ -1,4 +1,7 @@
 package enset.ilyasgrid.ebankbackend.exceptions;
 
-public class BalanceAccountInsufficient {
+public class BalanceAccountInsufficient extends Exception {
+    public BalanceAccountInsufficient(String message) {
+        super(message);
+    }
 }
