@@ -59,8 +59,8 @@ public class EBankBackendApplication {
             });
             bankAccountRepository.findAll().forEach(account -> {
                 for (int i = 0; i < 10; i++) {
-                    accountOperationRepository.save(new AccountOperation(null,  new java.util.Date(),Math.random() * 1000, OperationType.DEBIT, account));
-                    accountOperationRepository.save(new AccountOperation(null,  new java.util.Date(),Math.random() * 1000, OperationType.CREDIT, account));
+                    accountOperationRepository.save(new AccountOperation(null,  new java.util.Date(),Math.random() * 1000, OperationType.DEBIT, account, "Debit Operation"));
+                    accountOperationRepository.save(new AccountOperation(null,  new java.util.Date(),Math.random() * 1000, OperationType.CREDIT, account, "Credit Operation"));
                 }
             });
         };
